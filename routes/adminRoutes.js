@@ -25,9 +25,9 @@ router.get('/adm-brand', (req, res) => {
 router.get('/adm-order', (req, res) => {
     res.render('admin/admin-order');
 });
-router.get('/adm-product', (req, res) => {
-    res.render('admin/admin-product');
-});
+// router.get('/adm-product', (req, res) => {
+//     res.render('admin/admin-product');
+// });
 router.get('/adm-register', (req, res) => {
     res.render('admin/admin-register');
 });
