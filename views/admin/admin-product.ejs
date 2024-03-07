@@ -71,13 +71,13 @@
             <h1 class="fw-semibold mb-4">Product</h1>
             <div class="card">
               <div class="card-body">
-                <form method="POST" action="/adm-pro">
+                <form method="POST" action="/adm-pro" enctype="multipart/form-data">
                   <div class="row mb-3">
                     <div class="col-lg-8 col-md-8 col-sm-8">
                       <label for="exampleInputEmail1" class="form-label">Product Name</label>
                       <input type="text" class="form-control" name="pname">
                     </div>
-                    <!-- <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
                       <label for="exampleInputEmail1" class="form-label">Category</label>
                       <select id="disabledSelect" class="form-select" name="pcategory">+
                         <option value="phone">phone</option>
@@ -91,28 +91,27 @@
                   <div class="row mb-3">
                     <div class="col-lg-6 col-md-4 col-sm-4">
                       <label for="exampleInputEmail1" class="form-label">Product Price</label>
-                      <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      <input type="number" class="form-control"
                         name="pprice" value="">
                     </div>
                     <div class="col-lg-6 col-md-8 col-sm-8">
                       <label for="exampleInputEmail1" class="form-label">Product Quantity</label>
-                      <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                         value="">
+                      <input type="number" class="form-control"
+                       name="pquantity"  value="">
                     </div>
                   </div>
                   <div class="row mb-3">
                     <div class="col-lg-5 col-md-5 col-sm-5">
                       <label for="exampleInputEmail1" class="form-label">Product Image</label>
-                      <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        >
-                      <img src="../images/products/" alt="" width="100">
+                      <input type="file" class="form-control"
+                      name="pimg">
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-7">
                       <label for="exampleInputEmail1" class="form-label">Product Description</label>
                       <textarea class="form-control" id="productDescription" name="pdescription" rows="2" cols="50"></textarea>
                     </div>
-                  </div> -->
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                  <button type="submit" class="btn btn-primary" value="submit">Submit</button>
                   <a href="admin-product.html" class="btn btn-danger">Reset</a>
                 </form>
               </div>
@@ -163,22 +162,23 @@
                           <h6 class="fw-semibold mb-0">1</h6>
                         </td>
                         <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal"><%= product.Product_Name %></p>
+                          <p class="mb-0 fw-normal"><%= product.pname %></p>
                         </td>
                         <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal">4</p>
+                          <p class="mb-0 fw-normal"><%= product.pcategory %></p>
                         </td>
                         <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal">3</p>
+                          <p class="mb-0 fw-normal"><%= product.pquantity %></p>
                         </td>
                         <td class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0 fs-4">2</h6>
+                          <h6 class="fw-semibold mb-0 fs-4"><%= product.pprice %></h6>
                         </td>
                         <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal">1</p>
+                          <p class="mb-0 fw-normal"><%= product.pdescription %></p>
                         </td>
                         <td class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0 fs-4"><img src="../images/products/" alt="product image"
+                          <h6 class="fw-semibold mb-0 fs-4">
+                            <img src="/admin/images/prodect/<%= product.pimg %>" alt="product image"
                               width="50"></h6>
                         </td>
                         <td class="border-bottom-0">
