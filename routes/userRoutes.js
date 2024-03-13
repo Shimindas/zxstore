@@ -4,9 +4,9 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.render('user/index');
 });
-router.get('/sign', (req, res) => {
-    res.render('user/signup.ejs');
-});
+// router.get('/sign', (req, res) => {
+//     res.render('user/signup.ejs');
+// });
 router.get('/hom', (req, res) => {
     res.render('user/index1');
 });

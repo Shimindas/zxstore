@@ -11,17 +11,17 @@
          <div class="title">
             Sign Up
          </div>
-         <form action="#">
+         <form action="/sign" method="post">
             <div class="field">
-                <input type="text" required>
+                <input type="text" name="cname" required>
                 <label>Name</label>
              </div>
             <div class="field">
-               <input type="text" id="username" required>
+               <input type="text" id="usernam" name="cemail" required>
                <label>Email Address</label>
             </div>
             <div class="field">
-               <input type="password" id="password" required>
+               <input type="password" id="passwor" name="cpassword" required>
                <label>Password</label>
             </div>
             <div class="content">
@@ -31,12 +31,11 @@
                </div>
             </div>
             <div class="field">
-               <!-- <a href="/">
+               <a href="/">
                   <input type="submit" value="Sign up" onclick="fetch()">
-               </a> -->
+               </a>
             </div>
          </form>
-            <input type="submit" value="Sign up" onclick="fetch()">
       </div>
       <script>
          function fetch (){
