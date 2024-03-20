@@ -166,8 +166,34 @@ app.post('/sign', async (req, res) => {
     }
 });
 
+app.post('/updateapp', async (req, res) => {
+    try {
+        // Connect to the MongoDB database
+        const client = await MongoClient.connect('mongodb://localhost:27017/');
+        const db = client.db('zxstore');
+        const collection = db.collection('product');
+
+        const { pname,pcategory,pprice,pquantity,pdescription} = req.body;
 
 
+        console.log(patientId);
+        // Update the patient record with the specified patientId
+        const result = await collection.updateOne({ _id: new ObjectId(patientId) }, { $set: { pname,pcategory,pprice,pquantity,pdescription} });
+
+        // Check if the patient record was updated successfully
+        if (result.modifiedCount === 1) {
+            console.log(`patient with ID ${patientId} updated successfully.`);
+            // return res.redirect('/dapp');
+        } else {
+            console.log(`patient with ID ${patientId} not found.`);
+        }
+
+        // Redirect after successful deletion
+    } catch (e) {
+        console.error(`Error: ${e}`);
+        return "An error occurred while updating the patient record.";
+    }
+});
 // route
 
 app.listen(port, () => {
