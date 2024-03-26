@@ -115,61 +115,6 @@
                 </form>
               </div>
             </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog modal-fullscreen ">
-                <div class="modal-content p-5">
-                  <form method="POST" action="/adm-pro" enctype="multipart/form-data">
-                    <div class="row mb-3">
-                      <div class="col-lg-8 col-md-8 col-sm-8">
-                        <label for="exampleInputEmail1" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" name="pname">
-                      </div>
-                      <div class="col-lg-4 col-md-4 col-sm-4">
-                        <label for="exampleInputEmail1" class="form-label">Category</label>
-                        <select id="disabledSelect" class="form-select" name="pcategory">+
-                          <option value="phone">phone</option>
-                          <option value="desktop">desktop</option>
-                          <option value="watch">watch</option>
-                          <option value="laptop">laptop</option>
-                          <option value="earphone">earphone</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-lg-6 col-md-4 col-sm-4">
-                        <label for="exampleInputEmail1" class="form-label">Product Price</label>
-                        <input type="number" class="form-control" name="pprice" value="">
-                      </div>
-                      <div class="col-lg-6 col-md-8 col-sm-8">
-                        <label for="exampleInputEmail1" class="form-label">Product Quantity</label>
-                        <input type="number" class="form-control" name="pquantity" value="">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-lg-5 col-md-5 col-sm-5">
-                        <label for="exampleInputEmail1" class="form-label">Product Image</label>
-                        <input type="file" class="form-control" name="pimg">
-                      </div>
-                      <div class="col-lg-7 col-md-7 col-sm-7">
-                        <label for="exampleInputEmail1" class="form-label">Product Description</label>
-                        <textarea class="form-control" id="productDescription" name="pdescription" rows="2"
-                          cols="50"></textarea>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -237,7 +182,7 @@
                         <img src="/admin/images/prodect/<%= product.pimg %>" alt="product image" width="50"></h6>
                     </td>
                     <td class="border-bottom-0">
-                      <a data-bs-toggle="modal" data-bs-target="#exampleModal"><span><i
+                      <a data-bs-toggle="modal" data-bs-target="#exampleModal<%= product._id %>"><span><i
                             class="ti ti-edit btn btn-outline-success"></i></span></a>
                     </td>
                     <td class="border-bottom-0">
@@ -248,9 +193,68 @@
                       </form>
                     </td>
                   </tr>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal<%= product._id %>" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen p-5 " style="height: 80%;">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <h1 class="fw-semibold mb-4">Product</h1>
+                          <form method="POST" action="/updatedoc" enctype="multipart/form-data">
+                            <div class="row mb-3">
+                              <div class="col-lg-8 col-md-8 col-sm-8">
+                                <label for="exampleInputEmail1" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" name="pname" value="<%= product.pname %>">
+                              </div>
+                              <div class="col-lg-4 col-md-4 col-sm-4">
+                                <label for="exampleInputEmail1" class="form-label">Category</label>
+                                <select id="disabledSelect" class="form-select" name="pcategory">+
+                                  <option value="phone">phone</option>
+                                  <option value="desktop">desktop</option>
+                                  <option value="watch">watch</option>
+                                  <option value="laptop">laptop</option>
+                                  <option value="earphone">earphone</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="row mb-3">
+                              <div class="col-lg-6 col-md-4 col-sm-4">
+                                <label for="exampleInputEmail1" class="form-label"></label>
+                                <input type="number" class="form-control" name="pprice" value="">
+                              </div>
+                              <div class="col-lg-6 col-md-8 col-sm-8">
+                                <label for="exampleInputEmail1" class="form-label">Product Quantity</label>
+                                <input type="number" class="form-control" name="pquantity" value="">
+                              </div>
+                            </div>
+                            <div class="row mb-3">
+                              <div class="col-lg-5 col-md-5 col-sm-5">
+                                <label for="exampleInputEmail1" class="form-label">Product Image</label>
+                                <input type="file" class="form-control" name="pimg">
+                              </div>
+                              <div class="col-lg-7 col-md-7 col-sm-7">
+                                <label for="exampleInputEmail1" class="form-label">Product Description</label>
+                                <textarea class="form-control" id="productDescription" name="pdescription" rows="2"
+                                  cols="50"></textarea>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <input type="hidden" value="<%= product._id %>" name="proId">
+                              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                            </div>
+                          </form>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
                   <% }); %>
                 </tbody>
-
               </table>
             </div>
           </div>

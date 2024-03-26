@@ -78,7 +78,7 @@ app.post('/adm-pro', upload.single('pimg'), async (req, res) => {
         const db = client.db('zxstore');
         const collection = db.collection('product');
 
-        const {pname,pcategory,pprice,pquantity,pdescription} = req.body;
+        const {pname, pcategory, pprice, pquantity, pdescription} = req.body;
         
            // Save the filename in the database
            const pimg = req.file.filename;
@@ -166,26 +166,28 @@ app.post('/sign', async (req, res) => {
     }
 });
 
-app.post('/updateapp', async (req, res) => {
+app.post('/updatedoc', upload.single('pimg'), async (req, res) => {
     try {
         // Connect to the MongoDB database
         const client = await MongoClient.connect('mongodb://localhost:27017/');
         const db = client.db('zxstore');
         const collection = db.collection('product');
 
-        const { pname,pcategory,pprice,pquantity,pdescription} = req.body;
+        const { proId, pname, pcategory, pprice, pquantity, pdescription} = req.body;
+        
+                // Save the filename in the database
+                const pimg = req.file.filename;
 
-
-        console.log(patientId);
+        console.log(proId);
         // Update the patient record with the specified patientId
-        const result = await collection.updateOne({ _id: new ObjectId(patientId) }, { $set: { pname,pcategory,pprice,pquantity,pdescription} });
+        const result = await collection.updateOne({ _id: new ObjectId(proId) }, { $set: {pname, pcategory, pprice, pquantity, pdescription,pimg} });
 
         // Check if the patient record was updated successfully
         if (result.modifiedCount === 1) {
-            console.log(`patient with ID ${patientId} updated successfully.`);
-            // return res.redirect('/dapp');
+            console.log(`patient with ID ${proId} updated successfully.`);
+            return res.redirect('/adm-pro');
         } else {
-            console.log(`patient with ID ${patientId} not found.`);
+            console.log(`patient with ID ${proId} not found.`);
         }
 
         // Redirect after successful deletion
@@ -194,6 +196,9 @@ app.post('/updateapp', async (req, res) => {
         return "An error occurred while updating the patient record.";
     }
 });
+
+
+
 // route
 
 app.listen(port, () => {
