@@ -2,7 +2,10 @@ const express = require('express')
 const ejs = require('ejs')
 const fs = require('fs')
 const multer = require('multer')
-const { MongoClient, ObjectId } = require('mongodb')
+const {
+    MongoClient,
+    ObjectId
+} = require('mongodb')
 
 
 
@@ -21,12 +24,16 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage: storage
+});
 
 // new
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+    extended: false
+}));
 // new
 
 app.set('view engine', 'ejs');
@@ -78,13 +85,26 @@ app.post('/adm-pro', upload.single('pimg'), async (req, res) => {
         const db = client.db('zxstore');
         const collection = db.collection('product');
 
-        const {pname, pcategory, pprice, pquantity, pdescription} = req.body;
-        
-           // Save the filename in the database
-           const pimg = req.file.filename;
+        const {
+            pname,
+            pcategory,
+            pprice,
+            pquantity,
+            pdescription
+        } = req.body;
+
+        // Save the filename in the database
+        const pimg = req.file.filename;
 
 
-        const myobj = {pname,pcategory,pprice,pquantity,pdescription,pimg};
+        const myobj = {
+            pname,
+            pcategory,
+            pprice,
+            pquantity,
+            pdescription,
+            pimg
+        };
         await collection.insertOne(myobj);
 
         console.log("1 document inserted");
@@ -103,21 +123,25 @@ app.post('/deletepro', async (req, res) => {
 
         // Connect to the MongoDB database
         const client = await MongoClient.connect('mongodb://localhost:27017');
-        
+
         const db = client.db('zxstore');
         const collection = db.collection('product');
 
-        const product = await collection.findOne({ _id: new ObjectId(proId) });
+        const product = await collection.findOne({
+            _id: new ObjectId(proId)
+        });
 
 
         // Delete the product record with the specified proId
-        const result = await collection.deleteOne({ _id: new ObjectId(proId) });
+        const result = await collection.deleteOne({
+            _id: new ObjectId(proId)
+        });
 
         if (result.deletedCount === 1) {
             console.log(`product with ID ${proId} deleted successfully.`);
-            fs.unlinkSync('public/admin/images/prodect/'+ product.pimg);
+            fs.unlinkSync('public/admin/images/prodect/' + product.pimg);
             console.log('image delete done')
-            
+
         } else {
             console.log(`product with ID ${proId} not found.`);
         }
@@ -152,9 +176,17 @@ app.post('/sign', async (req, res) => {
         const db = client.db('zxstore');
         const collection = db.collection('login');
 
-        const {cname,cemail,cpassword} = req.body;
-        
-        const myobj = {cname,cemail,cpassword};
+        const {
+            cname,
+            cemail,
+            cpassword
+        } = req.body;
+
+        const myobj = {
+            cname,
+            cemail,
+            cpassword
+        };
         await collection.insertOne(myobj);
 
         console.log("1 document inserted");
@@ -166,6 +198,39 @@ app.post('/sign', async (req, res) => {
     }
 });
 
+app.post('/', async (req, res) => {
+    const {
+        cemail,
+        cpassword
+    } = req.body;
+    console.log('input emaail:', cemail);
+    console.log('input password:', cpassword);
+
+
+    try {
+        await client.connect();
+        const db = client.db('zxstore');
+        const collection = db.collection('login');
+
+        const login = await collection.findOne({
+            cemail: cemail
+        });
+        console.log('cemall',login);
+        if (!login) {
+            return res.status(404).send('user not found');
+        }
+        console.log('stored password', login.cpassword);
+        if (cpassword !== login.cpassword) {
+            return res.redirect('/');
+        } else {
+            return res.redirect('/hom');
+        }
+    } catch (error) {
+        res.status(500).send('error logging in');
+    }
+});
+
+
 app.post('/updatedoc', upload.single('pimg'), async (req, res) => {
     try {
         // Connect to the MongoDB database
@@ -173,14 +238,32 @@ app.post('/updatedoc', upload.single('pimg'), async (req, res) => {
         const db = client.db('zxstore');
         const collection = db.collection('product');
 
-        const { proId, pname, pcategory, pprice, pquantity, pdescription} = req.body;
-        
-                // Save the filename in the database
-                const pimg = req.file.filename;
+        const {
+            proId,
+            pname,
+            pcategory,
+            pprice,
+            pquantity,
+            pdescription
+        } = req.body;
+
+        // Save the filename in the database
+        const pimg = req.file.filename;
 
         console.log(proId);
         // Update the patient record with the specified patientId
-        const result = await collection.updateOne({ _id: new ObjectId(proId) }, { $set: {pname, pcategory, pprice, pquantity, pdescription,pimg} });
+        const result = await collection.updateOne({
+            _id: new ObjectId(proId)
+        }, {
+            $set: {
+                pname,
+                pcategory,
+                pprice,
+                pquantity,
+                pdescription,
+                pimg
+            }
+        });
 
         // Check if the patient record was updated successfully
         if (result.modifiedCount === 1) {

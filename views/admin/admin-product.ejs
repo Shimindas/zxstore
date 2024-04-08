@@ -212,7 +212,7 @@
                               </div>
                               <div class="col-lg-4 col-md-4 col-sm-4">
                                 <label for="exampleInputEmail1" class="form-label">Category</label>
-                                <select id="disabledSelect" class="form-select" name="pcategory">+
+                                <select id="disabledSelect" class="form-select" name="pcategory">
                                   <option value="phone">phone</option>
                                   <option value="desktop">desktop</option>
                                   <option value="watch">watch</option>
@@ -223,12 +223,12 @@
                             </div>
                             <div class="row mb-3">
                               <div class="col-lg-6 col-md-4 col-sm-4">
-                                <label for="exampleInputEmail1" class="form-label"></label>
-                                <input type="number" class="form-control" name="pprice" value="">
+                                <label for="exampleInputEmail1" class="form-label">Price</label>
+                                <input type="number" class="form-control" name="pprice" value="<%= product.pprice %>">
                               </div>
                               <div class="col-lg-6 col-md-8 col-sm-8">
                                 <label for="exampleInputEmail1" class="form-label">Product Quantity</label>
-                                <input type="number" class="form-control" name="pquantity" value="">
+                                <input type="number" class="form-control" name="pquantity" value="<%= product.pquantity %>">
                               </div>
                             </div>
                             <div class="row mb-3">
@@ -238,8 +238,8 @@
                               </div>
                               <div class="col-lg-7 col-md-7 col-sm-7">
                                 <label for="exampleInputEmail1" class="form-label">Product Description</label>
-                                <textarea class="form-control" id="productDescription" name="pdescription" rows="2"
-                                  cols="50"></textarea>
+                                <input class="form-control" id="productDescription" name="pdescription" value="<%= product.pdescription %>" rows="2"
+                                  cols="50" ></input>
                               </div>
                             </div>
                             <div class="modal-footer">
